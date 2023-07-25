@@ -1,15 +1,15 @@
 import { readFile } from "fs";
+import { promisify } from "util";
 
 import { step1, step2, step3 } from "./src/steps.js";
 import { isValidElement } from "./src/helper.js";
 
+const readFileAsync = promisify(readFile);
+
 // Read file, split to array, Validate input and call the steps
-function readFileAndProcessAndValidate(filename) {
-  readFile(filename, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error reading file:", err.message);
-      return;
-    }
+async function readFileAndProcessAndValidate(filename) {
+  try {
+    const data = await readFileAsync(filename, "utf8");
     const inputArray = data.split(",").map((item) => item.trim());
 
     // Filter Invalid elements
@@ -24,7 +24,9 @@ function readFileAndProcessAndValidate(filename) {
     // console.log(result1);
     // console.log(result2);
     console.log(JSON.stringify(result3, null, 1));
-  });
+  } catch (err) {
+    console.error("Error reading file:", err.message);
+  }
 }
 
 // Main function
