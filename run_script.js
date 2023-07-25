@@ -1,7 +1,7 @@
 import { readFile } from "fs";
 
-import { step1, step2, step3 } from "./steps.js";
-import { isValidElement } from "./helper.js";
+import { step1, step2, step3 } from "./src/steps.js";
+import { isValidElement } from "./src/helper.js";
 
 // Read file, split to array, Validate input and call the steps
 function readFileAndProcessAndValidate(filename) {
